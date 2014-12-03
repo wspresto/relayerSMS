@@ -1,7 +1,10 @@
 var RelayerLayoutView = Backbone.Marionette.LayoutView.extend({
-    id: 'message-board-layout-view',
-    initialize: function (args) {
-        this.template = args.template;
-        console.log('opo');
+    template: 'body',
+    regions: {
+	    messages: '#message-area',
+	    authors : '#author-area'
+    },
+    initialize: function () {
+        console.log('Relayer layout view is alive.');
     }
 });

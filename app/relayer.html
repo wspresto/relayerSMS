@@ -2,7 +2,11 @@
 
   <body>
     <div id="message-area"><p>MESSAGE BOARD</p></div>
-    <div id="controls-area"><p>CONTROLS</p></div>
+    <div id="controls-area">
+      <button type="button" id="sync-btn" data-loading-text="Syncing..." class="btn btn-primary" autocomplete="off">
+	Sync
+      </button>
+    </div>
   </body>
 
   <!--CSS libraries-->
@@ -25,6 +29,7 @@
 
   <!--Views-->
   <script type="application/javascript" src="/js/view/relayerLayoutView.js"></script>
+  <script type="application/javascript" src="/js/view/messageBoardCompositeView.js"></script>
 
 
   <!--Entry Pt-->

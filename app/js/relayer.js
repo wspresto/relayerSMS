@@ -4,15 +4,18 @@ var Relayer = Marionette.Application.extend({
    }
 });
 
-var relayer = new Relayer();
+var App = new  Relayer();
 
-relayer.addRegions({
-    messages: '#message-area',
-    controls: '#controls-area'
+App.addRegions({
+	relayer: 'body'
 });
 
+
 //load in templates, then begin the app
-require(['text!/html/view/relayerLayoutView.html'], function (rlvTemplate) {
-    relayer.messages.show(new RelayerLayoutView({template: rlvTemplate}));
-    relayer.start();
+require(['text!/html/view/messageBoardCompositeView.html'], function (mbcvTemplate) {
+	App.start();
+
+	var rlv = new RelayerLayoutView();
+	App.relayer.show(rlv);
+	rlv.messages.show(new MessageBoardCompositeView({template: mbcvTemplate}));
 });
