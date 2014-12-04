@@ -10,7 +10,6 @@ App.addRegions({
 	relayer: 'body'
 });
 
-
 //load in templates, then begin the app
 require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/messageBoardItemView.html'], function (mbcvTemplate, mbivTemplate) {
 	App.start();
@@ -18,7 +17,7 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
 	var rlv = new RelayerLayoutView();
 	App.relayer.show(rlv);
 
-    var messages = new Messages();
+    var messages = new Messages({url: 'http://192.168.1.4:8080'});
 	rlv.messages.show(new MessageBoardCompositeView({
         template: mbcvTemplate,
         childTemplate: mbivTemplate,
