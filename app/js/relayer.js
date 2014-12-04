@@ -12,10 +12,17 @@ App.addRegions({
 
 
 //load in templates, then begin the app
-require(['text!/html/view/messageBoardCompositeView.html'], function (mbcvTemplate) {
+require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/messageBoardItemView.html'], function (mbcvTemplate, mbivTemplate) {
 	App.start();
 
 	var rlv = new RelayerLayoutView();
 	App.relayer.show(rlv);
-	rlv.messages.show(new MessageBoardCompositeView({template: mbcvTemplate}));
+
+    var messages = new Messages();
+	rlv.messages.show(new MessageBoardCompositeView({
+        template: mbcvTemplate,
+        childTemplate: mbivTemplate,
+        childModel: MessageBoardItemView,
+        collection: messages
+    }));
 });

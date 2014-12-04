@@ -1,3 +1,10 @@
-/**
- * Created by wpreston on 12/2/14.
- */
+var Message = Backbone.Model.extend({
+    defaults: {
+        author: '',
+        content: '',
+        timestamp: ''
+    },
+    initialize: function () {
+
+    }
+});
