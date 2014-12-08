@@ -1,41 +1,42 @@
 <html>
 
   <body>
-    <div id="message-area"><p>MESSAGE BOARD</p></div>
-    <div id="controls-area">
-      <button type="button" id="sync-btn" data-loading-text="Syncing..." class="btn btn-primary" autocomplete="off">
-	Sync
-      </button>
-    </div>
+      <div id="message-area"></div>
+      <div id="contacts-area"></div>
+
+      <!--CSS libraries-->
+      <link rel="stylesheet" href="/css/bootstrap.css"/>
+      <link rel="stylesheet" href="/css/bootstrap-theme.css"/>
+      <link rel="stylesheet" href="/css/relayer.css"/>
+
+      <!--Dependencies-->
+      <script type="application/javascript" src="/lib/jquery.js"></script>
+      <script type="application/javascript" src="/lib/underscore.js"></script>
+      <script type="application/javascript" src="/lib/backbone.js"></script>
+      <script type="application/javascript" src="/lib/bb.marionette.js"></script>
+      <script type="application/javascript" src="/lib/bootstrap.js"></script>
+      <script type="application/javascript" src="/lib/require.js"></script>
+
+
+      <!--Models/Collections-->
+      <script type="application/javascript" src="/js/model/TextMessage.js"></script>
+      <script type="application/javascript" src="/js/model/TextMessages.js"></script>
+      <script type="application/javascript" src="/js/model/Contact.js"></script>
+      <script type="application/javascript" src="/js/model/Contacts.js"></script>
+
+
+      <!--Views-->
+      <script type="application/javascript" src="/js/view/noMessagesItemView.js"></script>
+      <script type="application/javascript" src="/js/view/messageBoardItemView.js"></script>
+      <script type="application/javascript" src="/js/view/messageBoardCompositeView.js"></script>
+      <script type="application/javascript" src="/js/view/contactQueueItemView.js"></script>
+      <script type="application/javascript" src="/js/view/noContactsItemView.js"></script>
+      <script type="application/javascript" src="/js/view/contactQueueCompositeView.js"></script>
+
+      <!--Entry Pt-->
+      <script type="application/javascript" src="/js/relayer.js"></script>
+
   </body>
 
-  <!--CSS libraries-->
-  <link rel="stylesheet" href="/css/bootstrap.css"/>
-  <link rel="stylesheet" href="/css/bootstrap-theme.css"/>
-  <link rel="stylesheet" href="/css/relayer.css"/>
-
-  <!--Dependencies-->
-  <script type="application/javascript" src="/lib/jquery.js"></script>
-  <script type="application/javascript" src="/lib/underscore.js"></script>
-  <script type="application/javascript" src="/lib/backbone.js"></script>
-  <script type="application/javascript" src="/lib/bb.babysitter.js"></script>
-  <script type="application/javascript" src="/lib/bb.wreqr.js"></script>
-  <script type="application/javascript" src="/lib/bb.marionette.js"></script>
-  <script type="application/javascript" src="/lib/bootstrap.js"></script>
-  <script type="application/javascript" src="/lib/require.js"></script>
-
-
-  <!--Models/Collections-->
-  <script type="application/javascript" src="/js/model/TextMessage.js"></script>
-  <script type="application/javascript" src="/js/model/TextMessages.js"></script>
-
-
-  <!--Views-->
-  <script type="application/javascript" src="/js/view/relayerLayoutView.js"></script>
-  <script type="application/javascript" src="/js/view/messageBoardItemView.js"></script>
-  <script type="application/javascript" src="/js/view/messageBoardCompositeView.js"></script>
-
-  <!--Entry Pt-->
-  <script type="application/javascript" src="/js/relayer.js"></script>
 
 </html>

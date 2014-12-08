@@ -1,8 +1,9 @@
 .txt-msg-box {
     border-style: solid;
-    border-color: blue;
+    border-color: pink;
+    background-color: pink;
     border-width: 2px;
-    border-radius: 25px;
+    border-radius: 10px;
 
     height: 50px;
     width: 100%;
@@ -11,6 +12,7 @@
     font-size: 16px;
 
     padding: 10px;
+    margin: 5px;
 }
 
 .txt-time {
@@ -18,10 +20,52 @@
 }
 
 .message-board {
-    width: 80%;
-    height: 50%;
+    height: 70%;
     overflow-y: auto;
+    padding: 5px;
+    margin-bottom: 5px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    background-color: deepskyblue;
+}
+#sync-btn {
+    position: absolute;
+    bottom: 0;
     margin: 5px;
-
-
+}
+#message-area {
+    width: 80%;
+    height: 100%;
+    padding: 5px;
+    display: inline;
+    float: left;
+    background-color: deepskyblue;
+}
+#authors-area {
+    width: 20%;
+    height: 100%;
+    float: right;
+    background-color: tomato;
+}
+#contact-queue {
+    height: 100%;
+    overflow-y: scroll;
+}
+.contact-box {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px;
+    background-color: lightcoral;
+}
+.contact-box:hover {
+    background-color: deeppink;
+}
+#contacts-area {
+    background-color: blanchedalmond;
+}
+.selected {
+    background-color: azure;
 }
