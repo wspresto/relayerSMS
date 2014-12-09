@@ -1,3 +1,4 @@
+var recepient = '';
 var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
     childViewContainer: '#msg-board',
     initialize: function (args) {
@@ -7,6 +8,7 @@ var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
         this.emptyView     = args.emptyView;
         this.messages      = args.messages;
         this.listenTo(this.messages, 'reset', this.refresh);
+        this.listenTo(App.vent, 'contact-select', this.updateMessageRecepient);
     },
     filter: '',
     events: {
@@ -18,6 +20,9 @@ var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
     refresh: function () {
         App.vent.trigger('messages-reset');
         this.render();
+    },
+    updateMessageRecepient: function (id, name) {
+        recepient = name;
     },
     syncWithServer: function () {
         this.messages.fetch({reset: true});
@@ -34,6 +39,11 @@ var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
     emptyViewOptions: function () {
         return {
             html : this.emptyViewHtml
+        }
+    },
+    templateHelpers: {
+        getRecepient: function () {
+            return recepient;
         }
     }
 });

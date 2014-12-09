@@ -9,17 +9,18 @@ var ContactQueueItemView = Backbone.Marionette.ItemView.extend({
     events: {
         'click .click-box' : 'selectContact'
     },
-    updateSelected: function (id) {
+    updateSelected: function (id, name) {
         var $tag = this.$el;
         if ($tag.length > 0) {
             $tag.removeClass('selected');
             if (this.model.get('id') === id) {
+                this.model.set('notifications', 0);
                 $tag.addClass('selected');
             }
         }
     },
     selectContact: function () {
-      App.vent.trigger('contact-select', this.model.get('id'));
+      App.vent.trigger('contact-select', this.model.get('id'), this.model.get('author'));
     },
     templateHelpers: {
         getNotifications: function () {

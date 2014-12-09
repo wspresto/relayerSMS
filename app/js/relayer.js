@@ -41,7 +41,7 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
         if (messages.length < 1) {
             return;
         }
-        //TODO: update contact models with new contact notification values
+        //update contact models with new contact notification values
         messages.comparator = function (model) { return model.get('author')};
         messages.sort();
         var count = 0;
@@ -57,7 +57,6 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
                 }
                 count = 0;
             }
-
         }
         //in any case increase count by one
         count++;
@@ -72,7 +71,7 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
         messages.sort();
         App.vent.trigger('notifications-reset');
     };
-    App.updateMessageBoardFilter = function (id) {
+    App.updateMessageBoardFilter = function (id, name) {
         mbcv.filter = id;
         mbcv.render();
     };
