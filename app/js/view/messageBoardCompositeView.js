@@ -1,4 +1,5 @@
-var recepient = '';
+var recepientName = '';
+var recepientId   = '';
 var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
     childViewContainer: '#msg-board',
     initialize: function (args) {
@@ -12,7 +13,8 @@ var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
     },
     filter: '',
     events: {
-        'click #sync-btn': 'syncWithServer'
+        'click #sync-btn': 'syncWithServer',
+        'click #send-btn': 'sendTxtMsg'
     },
     onBeforeRender: function () {
         this.collection = new Backbone.Collection(this.messages.where({number: this.filter}));
@@ -22,10 +24,14 @@ var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
         this.render();
     },
     updateMessageRecepient: function (id, name) {
-        recepient = name;
+        recepientName = name;
+        recepientId   = id;
     },
     syncWithServer: function () {
         this.messages.fetch({reset: true});
+    },
+    sendTxtMsg: function () {
+        App.vent.trigger('send-sms', recepientId);
     },
     childViewOptions: function () {
         var ct = this.childViewHtml;
@@ -43,7 +49,7 @@ var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
     },
     templateHelpers: {
         getRecepient: function () {
-            return recepient;
+            return recepientName;
         }
     }
 });
