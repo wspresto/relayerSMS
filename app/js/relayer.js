@@ -26,11 +26,15 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
     cqcv.syncWithServer();
 
     var messages = new Messages();
+    var oldMessages = new Messages();
+    oldMessages.oldMessagesFetch();
+
     var mbcv = new MessageBoardCompositeView({
         html: mbcvTemplate,
         childViewHtml: mbivTemplate,
         childView: MessageBoardItemView,
         messages: messages,
+        messageHistory: oldMessages,
         emptyView: NoMessages,
         emptyViewHtml: nmivTemplate
     });

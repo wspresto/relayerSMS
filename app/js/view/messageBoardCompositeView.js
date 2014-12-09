@@ -3,21 +3,26 @@ var recepientId   = '';
 var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
     childViewContainer: '#msg-board',
     initialize: function (args) {
-        this.template      = _.template(args.html);
-        this.childViewHtml = args.childViewHtml;
-        this.emptyViewHtml = args.emptyViewHtml;
-        this.emptyView     = args.emptyView;
-        this.messages      = args.messages;
+        this.template       = _.template(args.html);
+        this.childViewHtml  = args.childViewHtml;
+        this.emptyViewHtml  = args.emptyViewHtml;
+        this.emptyView      = args.emptyView;
+        this.messages       = args.messages;
+        this.messageHistory = args.messageHistory;
         this.listenTo(this.messages, 'reset', this.refresh);
         this.listenTo(App.vent, 'contact-select', this.updateMessageRecepient);
     },
-    filter: '',
     events: {
         'click #sync-btn': 'syncWithServer',
         'click #send-btn': 'sendTxtMsg'
     },
+    messageHistory: null, //sms from before the server...
     onBeforeRender: function () {
-        this.collection = new Backbone.Collection(this.messages.where({number: this.filter}));
+        var sent = this.messageHistory.where({number: recepientId});
+        var got  = this.messageHistory.where({author: recepientName});
+        var all  = sent.concat(got);
+        all      = all.concat(this.messages.models);
+        this.collection = new Backbone.Collection(all);
     },
     refresh: function () {
         App.vent.trigger('messages-reset');
@@ -28,7 +33,9 @@ var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
         recepientId   = id;
     },
     syncWithServer: function () {
-        this.messages.fetch({reset: true});
+        this.messages.fetch({reset: true, async : false}); //preserve all/old sms
+        this.messages.add(this.messageHistory.models);
+        this.messages.trigger('reset');
     },
     sendTxtMsg: function () {
         App.vent.trigger('send-sms', recepientId);
