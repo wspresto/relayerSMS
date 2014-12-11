@@ -12,6 +12,9 @@ var MessageBoardItemView = Backbone.Marionette.ItemView.extend({
             } else {
                 return '';
             }
+        },
+        isInboundMessage: function () {
+            return this.isInBoundMessage;
         }
     }
 });

@@ -1,12 +1,17 @@
 var Message = Backbone.Model.extend({
     defaults: {
-        author: '',
-        recipient: 'Me',
+        author: 'Me',//special author name
+        recipient: '',
         content: '',
         timestamp: '',
-        number: ''
+        number: '',
+        isInBoundMessage: false
     },
     initialize: function () {
 
+    },
+    parse: function (response) {
+        response.isInBoundMessage = (response.recipient === 'Me');
+        return response;
     }
 });

@@ -26,8 +26,9 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
     cqcv.syncWithServer();
 
     var messages = new Messages();
-    var oldMessages = new Messages();
-    oldMessages.oldMessagesFetch();
+    messages.fetch({reset: true});
+    var oldMessages = new OldMessages();
+    oldMessages.fetch({async: true, reset: true}); //SLOW
 
     var mbcv = new MessageBoardCompositeView({
         html: mbcvTemplate,
@@ -56,7 +57,7 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
             if (messages.at(m).get('author') !== messages.at(m + 1).get('author')) {
                 id = messages.at(m).get('number');
                 contact = contacts.findWhere({id: id});
-                if (contact !== null) {
+                if (typeof contact !== 'undefined') {
                     contact.set('notifications', count);
                 }
                 count = 0;
@@ -66,7 +67,7 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
         count++;
         id = messages.at(messages.length - 1).get('number');
         contact = contacts.findWhere({id: id});
-        if (contact !== null) {
+        if (typeof contact !== 'undefined') {
             contact.set('notifications', count);
         }
         App.vent.trigger('notification-reset');

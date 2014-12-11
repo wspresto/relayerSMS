@@ -1,7 +1,6 @@
 .txt-msg-box {
     border-style: solid;
-    border-color: pink;
-    background-color: pink;
+
     border-width: 2px;
     border-radius: 10px;
 
@@ -14,7 +13,14 @@
     padding: 10px;
     margin: 5px;
 }
-
+.inBoundMessage {
+    border-color: pink;
+    background-color: pink;
+}
+.outBoundMessage {
+    border-color: darkseagreen;
+    background-color: darkseagreen;
+}
 .txt-time {
     font-weight:900;
 }

@@ -7,7 +7,6 @@ var ContactQueueCompositeView = Backbone.Marionette.CompositeView.extend({
         this.emptyView     = args.emptyView;
         this.listenTo(this.collection, 'reset', this.refresh);
         this.listenTo(App.vent, 'notification-reset', this.sortByNotifications);
-        this.listenTo(App.vent, 'send-sms', this.sendTxtMsg);
         this.listenTo(App.vent, 'contact-select', this.updateSelectedContact);
     },
     selectedContact: null,
@@ -24,18 +23,6 @@ var ContactQueueCompositeView = Backbone.Marionette.CompositeView.extend({
     },
     syncWithServer: function () {
         this.collection.fetch({reset: true});
-    },
-    sendTxtMsg: function (id) {
-        if (this.selectedContact === null) {
-            return;
-        } else {
-            var $txtTag = $('textarea');
-            if ($txtTag.length > 0) {
-                console.log('sending txt to:' + this.selectedContact.get('author'));
-                console.log('txt:' + $txtTag.val());
-
-            }
-        }
     },
     childViewOptions: function () {
         var ct = this.childViewHtml;
