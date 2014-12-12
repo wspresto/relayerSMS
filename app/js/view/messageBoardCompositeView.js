@@ -75,6 +75,14 @@ var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
             html : this.emptyViewHtml
         }
     },
+    onRender: function () {
+        var $msgBoard = $('#msg-board');
+        if ($msgBoard.length > 0) {
+            $msgBoard.scrollTop($msgBoard.get(0).scrollHeight);
+        }
+
+        //this.$el.scrollTop(this.$el.get(0).scrollHeight); doesnt work?!?!
+    },
     templateHelpers: {
         getRecipient: function () {
             return recipientName;

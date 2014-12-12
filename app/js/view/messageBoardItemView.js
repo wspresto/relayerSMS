@@ -6,9 +6,10 @@ var MessageBoardItemView = Backbone.Marionette.ItemView.extend({
     },
     templateHelpers: {
         getTime: function () {
-            if (this.timestamp) {
-                var pieces = this.timestamp.split(' ');
-                return pieces[1];
+            var time = new Date(parseInt(this.timestamp)).toUTCString();
+            if (time) {
+                var pieces = time.split(' ');
+                return pieces[0] + ' ' + pieces[1] + ' ' + pieces[2];
             } else {
                 return '';
             }
