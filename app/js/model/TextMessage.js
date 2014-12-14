@@ -13,5 +13,6 @@ var Message = Backbone.Model.extend({
     parse: function (response) {
         response.isInBoundMessage = (response.recipient === 'Me');
         return response;
-    }
+    },
+    url: 'http://192.168.1.4:8080/message/'
 });

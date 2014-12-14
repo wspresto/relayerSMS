@@ -44,7 +44,7 @@ var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
         App.vent.trigger('messages-reset');
     },
     sendTxtMsg: function () {
-        if (this.recipientId.length === 0) {
+        if (recipientId.length === 0) {
             return;
         } else {
             var $txtTag = $('textarea');
@@ -56,7 +56,8 @@ var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
                     content: $txtTag.val(),
                     timestamp: new Date().getTime()
                 });
-                console.log(txt);
+                //console.log(txt);
+                txt.save(); //send the json payload to the servlet
                 this.messageHistory.add(txt);
             }
         }

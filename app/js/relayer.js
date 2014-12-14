@@ -1,5 +1,6 @@
 var messagesSyncInterval = 60 * 1000; //ms
 var messagesSyncThread   = -1;
+var autoSync = true;
 var Relayer = Backbone.Marionette.Application.extend({
    initialize: function () {
        console.log('Relayer online');
@@ -84,6 +85,8 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
     App.vent.on('contact-select', App.updateMessageBoardFilter);
 
     messagesSyncThread = setInterval(function () {
-        mbcv.syncWithServer();
+        if (autoSync) {
+            mbcv.syncWithServer();
+        }
     }, messagesSyncInterval);
 });
