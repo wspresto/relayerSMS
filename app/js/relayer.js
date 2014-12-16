@@ -9,11 +9,12 @@ var Relayer = Backbone.Marionette.Application.extend({
 
 var App = new  Relayer();
 App.addRegions({
-    messages: '#message-area',
-    contacts: '#contacts-area'
+    txts: '#message-area',
+    contacts: '#contacts-area',
+    compose: '#compose-area'
 });
 //load in templates, then begin the app
-require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/messageBoardItemView.html', 'text!/html/view/noMessagesItemView.html', 'text!/html/view/contactQueueCompositeView.html', 'text!/html/view/contactQueueItemView.html', 'text!/html/view/noContactsItemView.html'], function (mbcvTemplate, mbivTemplate, nmivTemplate, cqcvTemplate, cqivTemplate, ncivTemplate) {
+require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/messageBoardItemView.html', 'text!/html/view/noMessagesItemView.html', 'text!/html/view/contactQueueCompositeView.html', 'text!/html/view/contactQueueItemView.html', 'text!/html/view/noContactsItemView.html', 'text!/html/view/composeItemView.html'], function (mbcvTemplate, mbivTemplate, nmivTemplate, cqcvTemplate, cqivTemplate, ncivTemplate, civTemplate) {
     App.start();
     var contacts = new Contacts();
     var cqcv = new ContactQueueCompositeView({
@@ -26,37 +27,42 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
     });
     cqcv.syncWithServer();
 
-    var messages = new Messages();
-    messages.fetch({reset: true});
-    var oldMessages = new OldMessages();
-    oldMessages.fetch({async: true, reset: true}); //SLOW
+    App.messages = new Messages();
+    App.messages.fetch({reset: true});
+    App.messageHistory = new OldMessages();
+    App.messageHistory.fetch({async: true, reset: true}); //SLOW
 
     var mbcv = new MessageBoardCompositeView({
         html: mbcvTemplate,
         childViewHtml: mbivTemplate,
         childView: MessageBoardItemView,
-        messages: messages,
-        messageHistory: oldMessages,
+        messages: App.messages,
+        messageHistory: App.messageHistory,
         emptyView: NoMessages,
         emptyViewHtml: nmivTemplate
     });
-    App.messages.show(mbcv);
+    var civ = new ComposeView({
+        html: civTemplate
+    });
+
+    App.txts.show(mbcv);
     App.contacts.show(cqcv);
+    App.compose.show(civ);
 
     App.updateContactNotifications = function () {
-        if (messages.length < 1) {
+        if (App.messages.length < 1) {
             return;
         }
         //update contact models with new contact notification values
-        messages.comparator = function (model) { return model.get('author')};
-        messages.sort();
+        App.messages.comparator = function (model) { return model.get('author')};
+        App.messages.sort();
         var count = 0;
         var id    = '';
         var contact = null;
         for(var m = 0; m + 1 < messages.length; m++) {
             count++;
-            if (messages.at(m).get('author') !== messages.at(m + 1).get('author')) {
-                id = messages.at(m).get('number');
+            if (App.messages.at(m).get('author') !== messages.at(m + 1).get('author')) {
+                id = App.messages.at(m).get('number');
                 contact = contacts.findWhere({id: id});
                 if (typeof contact !== 'undefined') {
                     contact.set('notifications', count);
@@ -66,15 +72,15 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
         }
         //in any case increase count by one
         count++;
-        id = messages.at(messages.length - 1).get('number');
+        id = App.messages.at(App.messages.length - 1).get('number');
         contact = contacts.findWhere({id: id});
         if (typeof contact !== 'undefined') {
             contact.set('notifications', count);
         }
         App.vent.trigger('notification-reset');
 
-        messages.comparator = function (model) { return model.get('timestamp')};
-        messages.sort();
+        App.messages.comparator = function (model) { return model.get('timestamp')};
+        App.messages.sort();
         App.vent.trigger('notifications-reset');
     };
     App.updateMessageBoardFilter = function (id, name) {
@@ -86,7 +92,7 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
 
     messagesSyncThread = setInterval(function () {
         if (autoSync) {
-            mbcv.syncWithServer();
+            civ.syncWithServer();
         }
     }, messagesSyncInterval);
 });
