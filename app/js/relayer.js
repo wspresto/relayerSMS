@@ -49,45 +49,11 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
     App.contacts.show(cqcv);
     App.compose.show(civ);
 
-    App.updateContactNotifications = function () {
-        if (App.messages.length < 1) {
-            return;
-        }
-        //update contact models with new contact notification values
-        App.messages.comparator = function (model) { return model.get('author')};
-        App.messages.sort();
-        var count = 0;
-        var id    = '';
-        var contact = null;
-        for(var m = 0; m + 1 < messages.length; m++) {
-            count++;
-            if (App.messages.at(m).get('author') !== messages.at(m + 1).get('author')) {
-                id = App.messages.at(m).get('number');
-                contact = contacts.findWhere({id: id});
-                if (typeof contact !== 'undefined') {
-                    contact.set('notifications', count);
-                }
-                count = 0;
-            }
-        }
-        //in any case increase count by one
-        count++;
-        id = App.messages.at(App.messages.length - 1).get('number');
-        contact = contacts.findWhere({id: id});
-        if (typeof contact !== 'undefined') {
-            contact.set('notifications', count);
-        }
-        App.vent.trigger('notification-reset');
 
-        App.messages.comparator = function (model) { return model.get('timestamp')};
-        App.messages.sort();
-        App.vent.trigger('notifications-reset');
-    };
     App.updateMessageBoardFilter = function (id, name) {
         mbcv.filter = id;
         mbcv.render();
     };
-    App.vent.on('messages-reset', App.updateContactNotifications);
     App.vent.on('contact-select', App.updateMessageBoardFilter);
 
     messagesSyncThread = setInterval(function () {

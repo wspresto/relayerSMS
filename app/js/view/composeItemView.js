@@ -34,9 +34,11 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
                 //console.log(txt);
                 txt.save({
                     success: function () {
-                        $('textarea').val('');
+                        console.log('message posted!');
                     }
                 }); //send the json payload to the servlet
+                $('textarea').val('');
+                $('textarea').text('');
                 App.messageHistory.add(txt);
             }
         }

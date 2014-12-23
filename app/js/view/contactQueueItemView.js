@@ -14,13 +14,15 @@ var ContactQueueItemView = Backbone.Marionette.ItemView.extend({
         if ($tag.length > 0) {
             $tag.removeClass('selected');
             if (this.model.get('id') === id) {
-                this.model.set('notifications', 0);
                 $tag.addClass('selected');
             }
         }
     },
     selectContact: function () {
-      App.vent.trigger('contact-select', this.model.get('id'), this.model.get('author'));
+        var id = this.model.get('id');
+        var author = this.model.get('author');
+        App.vent.trigger('contact-select', id, author);
+        App.vent.trigger('messages-shown', id);
     },
     templateHelpers: {
         getNotifications: function () {
