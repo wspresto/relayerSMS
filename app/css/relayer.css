@@ -35,7 +35,7 @@ body {
     font-size: 20px;
 }
 .message-board {
-    height: 70%; //upperhalf
+    height: 70%;
     overflow-y: auto;
     padding: 5px 20px 5px 5px;
     margin-bottom: 5px;
@@ -61,7 +61,7 @@ body {
     background-color: tomato;
 }
 #contact-queue {
-    height: 49%; //has to be 1 percent less or else chars dont show up on mobile idk why its fucked
+    height: 49%;
     overflow-y: scroll;
 }
 .contact-box {
@@ -103,7 +103,7 @@ body {
 }
 #send-box {
     width: 100%;
-    height: 20%; //bottm half
+    height: 20%;
 }
 #write-box {
     width: 100%;
