@@ -31,11 +31,11 @@ body {
     font-weight:900;
 }
 #title-box {
-    height: 5%;
+    height: 0%;
     font-size: 20px;
 }
 .message-board {
-    height: 80%;
+    height: 70%; //upperhalf
     overflow-y: auto;
     padding: 5px 20px 5px 5px;
     margin-bottom: 5px;
@@ -48,7 +48,7 @@ body {
 
 #message-area {
     width: 80%;
-    height: 70%;
+    height: 50%;
     padding: 5px;
     display: inline;
     float: left;
@@ -61,7 +61,7 @@ body {
     background-color: tomato;
 }
 #contact-queue {
-    height: 69%;
+    height: 49%; //has to be 1 percent less or else chars dont show up on mobile idk why its fucked
     overflow-y: scroll;
 }
 .contact-box {
@@ -84,13 +84,31 @@ body {
     background-color: azure;
 }
 
+.key-btn {
+    width: 100%;
+    border-radius: 10px;
+}
+.key-row {
+    padding-bottom: 4px;
+    padding-top: 4px;
+    font-size: 32px;
+}
+.space-btn {
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.numeric-row {
+    padding-top: 5px;
+}
 #send-box {
     width: 100%;
-    height: 15%;
+    height: 20%; //bottm half
 }
 #write-box {
     width: 100%;
     height: 100%;
+    font-size: 32px;
 }
 #controls {
     width: 100%;
@@ -100,10 +118,7 @@ body {
 textarea {
     resize: none;
 }
-#send-btn {
-    float: right;
-    margin: 10px 0 10px 0;
-}
+
 
 #sync-btn {
     margin: 10px 0 10px 0;

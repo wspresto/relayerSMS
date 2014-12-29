@@ -1,9 +1,68 @@
 <div id="send-box">
-    <textarea name="compose" placeholder="Type your txt msg playah..." id="write-box" maxlength="160"></textarea>
+    <textarea readonly name="compose" placeholder="Type your txt msg playah..." id="write-box" maxlength="160"></textarea>
+    <div class="keyboard">
+        <div class="row key-row">
+            <div class="col-sm-1"><button class="key-btn">q</button></div>
+            <div class="col-sm-1"><button class="key-btn">w</button></div>
+            <div class="col-sm-1"><button class="key-btn">e</button></div>
+            <div class="col-sm-1"><button class="key-btn">r</button></div>
+            <div class="col-sm-1"><button class="key-btn">t</button></div>
+            <div class="col-sm-1"><button class="key-btn">y</button></div>
+            <div class="col-sm-1"><button class="key-btn">u</button></div>
+            <div class="col-sm-1"><button class="key-btn">i</button></div>
+            <div class="col-sm-1"><button class="key-btn">o</button></div>
+            <div class="col-sm-1"><button class="key-btn">p</button></div>
+            <div class="col-sm-2"><button class="key-btn back-btn"><--</button></div>
+        </div>
+        <div class="row key-row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1"><button class="key-btn">a</button></div>
+            <div class="col-sm-1"><button class="key-btn">s</button></div>
+            <div class="col-sm-1"><button class="key-btn">d</button></div>
+            <div class="col-sm-1"><button class="key-btn">f</button></div>
+            <div class="col-sm-1"><button class="key-btn">g</button></div>
+            <div class="col-sm-1"><button class="key-btn">h</button></div>
+            <div class="col-sm-1"><button class="key-btn">j</button></div>
+            <div class="col-sm-1"><button class="key-btn">k</button></div>
+            <div class="col-sm-1"><button class="key-btn">l</button></div>
+            <div class="col-sm-2"><button class="key-btn" id="send-btn">Send</button></div>
+        </div>
+        <div class="row key-row">
+            <div class="col-sm-1"><button class="key-btn">z</button></div>
+            <div class="col-sm-1"><button class="key-btn">x</button></div>
+            <div class="col-sm-1"><button class="key-btn">c</button></div>
+            <div class="col-sm-1"><button class="key-btn">v</button></div>
+            <div class="col-sm-1"><button class="key-btn">b</button></div>
+            <div class="col-sm-1"><button class="key-btn">n</button></div>
+            <div class="col-sm-1"><button class="key-btn">m</button></div>
+            <div class="col-sm-1"><button class="key-btn">,</button></div>
+            <div class="col-sm-1"><button class="key-btn">.</button></div>
+            <div class="col-sm-1"><button class="key-btn">?</button></div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2"><button id="shift-btn" class="key-btn">Shift</button></div>
+        </div>
+
+
+    <div class="row key-row">
+        <div class="col-sm-12 space-btn"><button class="key-btn">&nbsp;</button></div>
+    </div>
+    <div class="row key-row numeric-row">
+        <div class="col-sm-1"><button class="key-btn">1</button></div>
+        <div class="col-sm-1"><button class="key-btn">2</button></div>
+        <div class="col-sm-1"><button class="key-btn">3</button></div>
+        <div class="col-sm-1"><button class="key-btn">4</button></div>
+        <div class="col-sm-1"><button class="key-btn">5</button></div>
+        <div class="col-sm-1"><button class="key-btn">6</button></div>
+        <div class="col-sm-1"><button class="key-btn">7</button></div>
+        <div class="col-sm-1"><button class="key-btn">8</button></div>
+        <div class="col-sm-1"><button class="key-btn">9</button></div>
+        <div class="col-sm-1"><button class="key-btn">0</button></div>
+        <div class="col-sm-1"><button class="key-btn">-</button></div>
+        <div class="col-sm-1"><button class="key-btn">=</button></div>
+
+    </div>
+    </div>
     <button type="button" id="sync-btn" data-loading-text="Syncing..." class="btn btn-lg" autocomplete="on">
         Sync
-    </button>
-    <button type="button" id="send-btn" data-loading-text="Sending..." class="btn btn-lg" autocomplete="on">
-        Send
     </button>
 </div>

@@ -5,7 +5,27 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
     events: {
         'keypress textarea': 'submitMessage',
         'click #sync-btn': 'syncWithServer',
-        'click #send-btn': 'sendTxtMsg'
+        'click #send-btn': 'sendTxtMsg',
+        'click .key-btn': 'typeChar',
+        'click #shift-btn': 'toUpperCase'
+    },
+    typeChar: function (e) {
+        var $txtTag = $('textarea');
+        var $btnPressed = $(e.currentTarget);
+
+
+        var line = $txtTag.val();
+        if (!$btnPressed.hasClass('back-btn')) {
+            var charPressed = $btnPressed.text();
+            line += charPressed;
+        } else {
+            line = line.substring(0,line.length - 1);
+        }
+
+        $txtTag.val(line);
+    },
+    toUpperCase: function () {
+
     },
     submitMessage: function (e) {
         if (e.keyCode === 13) {
