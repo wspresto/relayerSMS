@@ -15,10 +15,12 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
 
 
         var line = $txtTag.val();
-        if (!$btnPressed.hasClass('control-char')) {
-            line +=  $btnPressed.text();
-        } else {
-            line = line.substring(0,line.length - 1);
+        if ($btnPressed.hasClass('back-btn')) {
+            line = line.substring(0,line.length - 1);            
+        } else if ($btnPressed.hasClass('send-btn')) {
+	    line = '';
+	} else {
+	    line +=  $btnPressed.text();
         }
 
         $txtTag.val(line);
@@ -50,12 +52,13 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
             //console.log(txt);
             txt.save({
                 success: function () {
-                    console.log('message posted!');
+		    App.messageHistory.add(txt);
+                    App.vent.trigger('messages-reset');
                 }
             }); //send the json payload to the servlet
             $('textarea').val('');
             $('textarea').text('');
-            App.messageHistory.add(txt);
+
         }
 
     }
