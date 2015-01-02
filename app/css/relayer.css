@@ -54,14 +54,8 @@ body {
     float: left;
 
 }
-#authors-area {
-    width: 20%;
-    height: 100%;
-    float: right;
-    background-color: tomato;
-}
 #contact-queue {
-    height: 49%;
+    height: 100%;
     overflow-y: scroll;
 }
 .contact-box {
@@ -78,7 +72,10 @@ body {
     background-color: pink;
 }
 #contacts-area {
-
+    margin-top: 5px;
+    width: 20%;
+    height: 49%;
+    float: right;
 }
 .selected {
     background-color: azure;
@@ -117,6 +114,8 @@ body {
 
 textarea {
     resize: none;
+    padding: 5px;
+    margin: 0 5px 5px 5px;
 }
 
 

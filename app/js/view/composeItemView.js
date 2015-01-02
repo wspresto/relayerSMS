@@ -15,9 +15,8 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
 
 
         var line = $txtTag.val();
-        if (!$btnPressed.hasClass('back-btn')) {
-            var charPressed = $btnPressed.text();
-            line += charPressed;
+        if (!$btnPressed.hasClass('control-char')) {
+            line +=  $btnPressed.text();
         } else {
             line = line.substring(0,line.length - 1);
         }
@@ -39,28 +38,25 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
         App.vent.trigger('messages-reset');
     },
     sendTxtMsg: function () {
-        if (recipientId.length === 0) {
-            return;
-        } else {
-            var $txtTag = $('textarea');
-            if ($txtTag.length > 0) {
-                var txt = new Message({
-                    author: "Me",
-                    recipient: recipientName,
-                    number: recipientId,
-                    content: $txtTag.val(),
-                    timestamp: new Date().getTime()
-                });
-                //console.log(txt);
-                txt.save({
-                    success: function () {
-                        console.log('message posted!');
-                    }
-                }); //send the json payload to the servlet
-                $('textarea').val('');
-                $('textarea').text('');
-                App.messageHistory.add(txt);
-            }
+        var $txtTag = $('textarea');
+        if (recipientId.length > 0 && $txtTag.length > 0) {
+            var txt = new Message({
+                author: "Me",
+                recipient: recipientName,
+                number: recipientId,
+                content: $txtTag.val(),
+                timestamp: new Date().getTime()
+            });
+            //console.log(txt);
+            txt.save({
+                success: function () {
+                    console.log('message posted!');
+                }
+            }); //send the json payload to the servlet
+            $('textarea').val('');
+            $('textarea').text('');
+            App.messageHistory.add(txt);
         }
+
     }
 });

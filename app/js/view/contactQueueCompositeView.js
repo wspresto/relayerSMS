@@ -9,7 +9,7 @@ var ContactQueueCompositeView = Backbone.Marionette.CompositeView.extend({
         this.listenTo(App.vent, 'notification-reset', this.sortByNotifications);
         this.listenTo(App.vent, 'contact-select', this.updateSelectedContact);
     },
-    selectedContact: null,
+    selectedContact: null, //a contact model
     sortByNotifications: function () {
         this.collection.comparator = function (model) { return -1 * model.get('notifications')};
         this.collection.sort();
