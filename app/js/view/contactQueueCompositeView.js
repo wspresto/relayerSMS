@@ -5,18 +5,12 @@ var ContactQueueCompositeView = Backbone.Marionette.CompositeView.extend({
         this.childViewHtml     = args.childViewHtml;
         this.emptyViewHtml = args.emptyViewHtml;
         this.emptyView     = args.emptyView;
-        this.listenTo(this.collection, 'reset', this.refresh);
-        this.listenTo(App.vent, 'notification-reset', this.sortByNotifications);
-        this.listenTo(App.vent, 'contact-select', this.updateSelectedContact);
     },
     selectedContact: null, //a contact model
     sortByNotifications: function () {
         this.collection.comparator = function (model) { return -1 * model.get('notifications')};
         this.collection.sort();
         this.render();
-    },
-    refresh: function () {
-        console.log('contacts fetched!');
     },
     updateSelectedContact: function (id, name) {
         this.selectedContact = this.collection.findWhere({id: id});

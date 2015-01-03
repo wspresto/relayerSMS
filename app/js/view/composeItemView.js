@@ -35,9 +35,7 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
         }
     },
     syncWithServer: function () {
-        App.messages.fetch({reset: true, async : false}); //preserve all/old sms
-        App.messages.trigger('reset');
-        App.vent.trigger('messages-reset');
+        App.vent.trigger('messages-sync');
     },
     sendTxtMsg: function () {
         var $txtTag = $('textarea');
@@ -52,8 +50,7 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
             //console.log(txt);
             txt.save({
                 success: function () {
-		    App.messageHistory.add(txt);
-                    App.vent.trigger('messages-reset');
+                    App.vent.trigger('messages-sync');
                 }
             }); //send the json payload to the servlet
             $('textarea').val('');

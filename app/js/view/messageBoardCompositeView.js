@@ -10,10 +10,7 @@ var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
         this.messages       = args.messages;
         this.messageHistory = args.messageHistory;
 
-        this.listenTo(this.messages, 'reset', this.render);
-        this.listenTo(this.messageHistory, 'reset', this.render); //do not trigger notifications for old messages
-	this.listenTo(App.vent, 'messages-reset', this.render);
-        this.listenTo(App.vent, 'contact-select', this.updateMessageRecepient);
+
     },
     messageHistory: null, //sms from before the server...
     onBeforeRender: function () {
@@ -28,6 +25,7 @@ var MessageBoardCompositeView = Backbone.Marionette.CompositeView.extend({
     updateMessageRecepient: function (id, name) {
         recipientName = name;
         recipientId   = id;
+        this.render();
     },
     childViewOptions: function () {
         var ct = this.childViewHtml;
