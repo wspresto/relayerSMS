@@ -4,8 +4,6 @@ var autoSync = true;
 var Relayer = Backbone.Marionette.Application.extend({
    initialize: function () {
        console.log('Relayer online');
-
-
    }
 });
 
@@ -72,14 +70,15 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
             id = App.messages.at(m).get('number');
             isUnRead = App.messages.at(m).get('isUnRead');
             //DONE: for all messages marked as unread trigger a new-message with an argument of author id, thenn listening contact models can increase their notifications
-            if (isUnRead) {
-                App.vent.trigger('new-message', id);
+            if (isUnRead === 'true') {
+                //console.log('new message arrived:' + App.messages.at(m).get('number')); //TESTING!!!
+                App.vent.trigger('message-new', id);
             }
         }
 
-        this.comparator = function (model) { return model.get('timestamp')};
-        this.sort();
-        App.vent.trigger('notification-reset'); //force render of contact queue
+        App.messages.comparator = function (model) { return model.get('timestamp')};
+        App.messages.sort();
+        App.vent.trigger('contact-sort'); //force render of contact queue
     };
 
     //Global Events
@@ -89,13 +88,13 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
     App.listenTo(App.messages, 'reset', App.updateContactNotifications);
 
     //App.listenTo(App.vent, 'contact-select', App.updateMessageBoardFilter);
-    App.listenTo(App.vent, 'contact-select', _.bind(mbcv.updateMessageRecepient, mbcv));
-    App.listenTo(App.vent, 'contact-select', _.bind(cqcv.updateSelectedContact, cqcv));
+    App.listenTo(App.vent, 'contact-select',   _.bind(mbcv.updateMessageRecepient, mbcv));
+    App.listenTo(App.vent, 'contact-select',   _.bind(cqcv.updateSelectedContact, cqcv));
     App.listenTo(App.vent, 'refresh-messages', _.bind(mbcv.render, mbcv));
-    App.listenTo(App.vent, 'notification-reset', _.bind(cqcv.sortByNotifications, cqcv));
+    App.listenTo(App.vent, 'contact-sort',     _.bind(cqcv.sortByNotifications, cqcv));
 
     App.listenTo(App.vent, 'messages-sync', function () {
-        App.messages.fetch({reset: true, async : false}); //preserve all/old sms
+        App.messages.fetch({reset: true, async : true}); //preserve all/old sms
     });
 
 

@@ -5,14 +5,10 @@ var Contact = Backbone.Model.extend({
         notifications: 0
     },
     initialize: function () {
-        this.listenTo(App.vent, 'messages-shown', this.markAllAsRead);
-        this.listenTo(App.vent, 'messages-new', this.increaseNotifications);
+        this.listenTo(App.vent, 'message-new', this.increaseNotifications);
     },
-    markAllAsRead: function (id) {
-        if (id === this.get('id')) {
-            this.set('notifications', 0);
-            this.trigger('change');
-        }
+    markAllAsRead: function () {
+        this.set('notifications', 0);
     },
     increaseNotifications: function (id) {
         if (id === this.get('id')) {

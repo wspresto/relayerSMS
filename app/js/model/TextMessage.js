@@ -5,7 +5,8 @@ var Message = Backbone.Model.extend({
         content: '',
         timestamp: '',
         number: '',
-        isInBoundMessage: false
+        isInBoundMessage: false,
+        isUnRead: false
     },
     initialize: function () {
 
