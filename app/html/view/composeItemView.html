@@ -12,7 +12,7 @@
             <div class="col-sm-1"><button class="key-btn">i</button></div>
             <div class="col-sm-1"><button class="key-btn">o</button></div>
             <div class="col-sm-1"><button class="key-btn">p</button></div>
-            <div class="col-sm-2"><button class="key-btn back-btn control-char"><--</button></div>
+            <div class="col-sm-2"><button class="key-btn send-btn" id="send-btn">Send</button></div>
         </div>
         <div class="row key-row">
             <div class="col-sm-1"></div>
@@ -25,7 +25,7 @@
             <div class="col-sm-1"><button class="key-btn">j</button></div>
             <div class="col-sm-1"><button class="key-btn">k</button></div>
             <div class="col-sm-1"><button class="key-btn">l</button></div>
-            <div class="col-sm-2"><button class="key-btn send-btn" id="send-btn">Send</button></div>
+            <div class="col-sm-2"><button id="shift-btn" class="key-btn control-char">Shift</button></div>
         </div>
         <div class="row key-row">
             <div class="col-sm-1"><button class="key-btn">z</button></div>
@@ -39,7 +39,7 @@
             <div class="col-sm-1"><button class="key-btn">.</button></div>
             <div class="col-sm-1"><button class="key-btn">?</button></div>
             <div class="col-sm-1"></div>
-            <div class="col-sm-2"><button id="shift-btn" class="key-btn control-char">Shift</button></div>
+            <div class="col-sm-2"><button class="key-btn back-btn control-char"><--</button></div>
         </div>
 
 
@@ -62,7 +62,45 @@
 
     </div>
     </div>
-    <button type="button" id="sync-btn" data-loading-text="Syncing..." class="btn btn-lg" autocomplete="on">
-        Sync
-    </button>
+
+    <!-- these controls trigger events caught by our controlling application-->
+
+
+    <div id="frequency-box" class="row">
+        <div id="frequency-box-label" class="col-lg-2 relayer-font">
+            <span>Message Frequency</span>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group">
+            <span class="input-group-addon">
+                <input type="radio" name="auto-sync-rate" value="5" >
+            </span>
+                <input readonly type="text" value="5s interval" class="form-control">
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group">
+            <span class="input-group-addon">
+                <input type="radio" name="auto-sync-rate" value="30" >
+            </span>
+                <input readonly type="text" value="30s interval" class="form-control">
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group">
+            <span class="input-group-addon">
+                <input checked type="radio" name="auto-sync-rate" value="60" >
+            </span>
+                <input readonly type="text" value="1 min interval" class="form-control">
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="input-group">
+            <span class="input-group-addon">
+                <input type="radio" name="auto-sync-rate" value="300" >
+            </span>
+                <input readonly type="text" value="5 min interval" class="form-control">
+            </div>
+        </div>
+    </div>
 </div>

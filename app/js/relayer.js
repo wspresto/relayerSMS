@@ -51,11 +51,8 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
     App.compose.show(civ);
 
 
-
     messagesSyncThread = setInterval(function () {
-        if (autoSync) {
-            App.vent.trigger('messages-sync');
-        }
+        App.vent.trigger('messages-sync');
     }, messagesSyncInterval);
 
     App.updateContactNotifications = function () {
@@ -93,6 +90,19 @@ require(['text!/html/view/messageBoardCompositeView.html', 'text!/html/view/mess
     App.listenTo(App.vent, 'refresh-messages', _.bind(mbcv.render, mbcv));
     App.listenTo(App.vent, 'contact-sort',     _.bind(cqcv.sortByNotifications, cqcv));
 
+    App.listenTo(App.vent, 'messages-sync-frequency', function (newInterval) {
+        if (typeof newInterval !== 'number' || newInterval <= 0) {
+            return;
+        }
+        //console.log('Changing sync interval to:' + newInterval);
+        messagesSyncInterval = newInterval * 1000; //ms
+        clearInterval(messagesSyncThread);
+        messagesSyncThread = setInterval(function () {
+            App.vent.trigger('messages-sync');
+        }, messagesSyncInterval);
+    });
+
+    //ask server for text messages!!!
     App.listenTo(App.vent, 'messages-sync', function () {
         App.messages.fetch({reset: true, async : true}); //preserve all/old sms
     });

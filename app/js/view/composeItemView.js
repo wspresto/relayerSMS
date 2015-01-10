@@ -7,7 +7,14 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
         'click #sync-btn': 'syncWithServer',
         'click #send-btn': 'sendTxtMsg',
         'click .key-btn': 'typeChar',
-        'click #shift-btn': 'toUpperCase'
+        'click #shift-btn': 'toggleCase',
+        'click input[type=radio]': 'changeMessageSyncFrequency'
+    },
+    changeMessageSyncFrequency: function (e) {
+        var $radioBtn = $(e.currentTarget);
+        var seconds = parseInt($radioBtn.val());
+
+        App.vent.trigger('messages-sync-frequency', seconds);
     },
     typeChar: function (e) {
         var $txtTag = $('textarea');
@@ -25,8 +32,8 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
 
         $txtTag.val(line);
     },
-    toUpperCase: function () {
-
+    toggleCase: function () {
+        //TODO: toggle a flag and the button so that type char will use it to determine if char is upper or lower case
     },
     submitMessage: function (e) {
         if (e.keyCode === 13) {
