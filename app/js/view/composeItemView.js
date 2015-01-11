@@ -3,55 +3,47 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
         this.template = _.template(args.html);
     },
     events: {
-        'keypress textarea': 'submitMessage',
-        'click #sync-btn': 'syncWithServer',
         'click #send-btn': 'sendTxtMsg',
-        'click .key-btn': 'typeChar',
+        'mousedown .key-btn': 'typeChar',
         'click #shift-btn': 'toggleCase',
         'click input[type=radio]': 'changeMessageSyncFrequency'
+
     },
+    $txtTag: null,
     changeMessageSyncFrequency: function (e) {
         var $radioBtn = $(e.currentTarget);
         var seconds = parseInt($radioBtn.val());
-
         App.vent.trigger('messages-sync-frequency', seconds);
     },
+    onShow: function () {
+        this.$txtTag = $('textarea');
+    },
     typeChar: function (e) {
-        var $txtTag = $('textarea');
         var $btnPressed = $(e.currentTarget);
 
-
-        var line = $txtTag.val();
+        var line = this.$txtTag.val();
         if ($btnPressed.hasClass('back-btn')) {
             line = line.substring(0,line.length - 1);            
         } else if ($btnPressed.hasClass('send-btn')) {
-	    line = '';
-	} else {
-	    line +=  $btnPressed.text();
+            line = '';
+        } else if ($btnPressed.hasClass('shift-btn')) {
+            this.toggleCase();
+        } else {
+            line +=  $btnPressed.text();
         }
 
-        $txtTag.val(line);
+        this.$txtTag.val(line);
     },
     toggleCase: function () {
         //TODO: toggle a flag and the button so that type char will use it to determine if char is upper or lower case
     },
-    submitMessage: function (e) {
-        if (e.keyCode === 13) {
-            e.preventDefault();
-            $('#send-btn').click();
-        }
-    },
-    syncWithServer: function () {
-        App.vent.trigger('messages-sync');
-    },
     sendTxtMsg: function () {
-        var $txtTag = $('textarea');
-        if (recipientId.length > 0 && $txtTag.length > 0) {
+        if (recipientId.length > 0 && this.$txtTag.length > 0) {
             var txt = new Message({
                 author: "Me",
                 recipient: recipientName,
                 number: recipientId,
-                content: $txtTag.val(),
+                content: this.$txtTag.val(),
                 timestamp: new Date().getTime()
             });
             //console.log(txt);
@@ -60,8 +52,8 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
                     App.vent.trigger('messages-sync');
                 }
             }); //send the json payload to the servlet
-            $('textarea').val('');
-            $('textarea').text('');
+            this.$txtTag.val('');
+            this.$txtTag.text('');
 
         }
 
