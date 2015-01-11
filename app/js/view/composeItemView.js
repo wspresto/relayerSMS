@@ -26,7 +26,7 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
         if ($btnPressed.hasClass('back-btn')) {
             line = line.substring(0,line.length - 1);            
         } else if ($btnPressed.hasClass('send-btn')) {
-            line = '';
+            line += '';
         } else if ($btnPressed.hasClass('shift-btn')) {
             this.toggleCase();
         } else {
