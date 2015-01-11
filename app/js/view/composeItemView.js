@@ -13,6 +13,7 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
     changeMessageSyncFrequency: function (e) {
         var $radioBtn = $(e.currentTarget);
         var seconds = parseInt($radioBtn.val());
+
         App.vent.trigger('messages-sync-frequency', seconds);
     },
     onShow: function () {
@@ -38,12 +39,13 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
         //TODO: toggle a flag and the button so that type char will use it to determine if char is upper or lower case
     },
     sendTxtMsg: function () {
-        if (recipientId.length > 0 && this.$txtTag.length > 0) {
+        var $txtTag = $('textarea');
+        if (recipientId.length > 0 && $txtTag.length > 0) {
             var txt = new Message({
                 author: "Me",
                 recipient: recipientName,
                 number: recipientId,
-                content: this.$txtTag.val(),
+                content: $txtTag.val(),
                 timestamp: new Date().getTime()
             });
             //console.log(txt);
@@ -52,8 +54,8 @@ var ComposeView = Backbone.Marionette.ItemView.extend({
                     App.vent.trigger('messages-sync');
                 }
             }); //send the json payload to the servlet
-            this.$txtTag.val('');
-            this.$txtTag.text('');
+            $('textarea').val('');
+            $('textarea').text('');
 
         }
 
