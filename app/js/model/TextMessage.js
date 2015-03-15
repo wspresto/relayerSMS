@@ -15,5 +15,5 @@ var Message = Backbone.Model.extend({
         response.isInBoundMessage = (response.recipient === 'Me');
         return response;
     },
-    url: 'http://192.168.1.4:8080/message/'
+    url: 'http://192.168.2.8:8080/message/'
 });

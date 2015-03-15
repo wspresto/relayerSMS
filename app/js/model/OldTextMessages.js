@@ -5,5 +5,5 @@ var OldMessages = Backbone.Collection.extend({
     parse: function (response) {
         return response.messages;
     },
-    url: 'http://192.168.1.4:8080/messages-history/'
+    url: 'http://192.168.2.8:8080/messages-history/'
 });
